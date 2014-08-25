@@ -1,7 +1,9 @@
 package com.magnabyte.POI;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -46,6 +48,7 @@ public class CreateExcel
         int rownum = 0;
         for (String key : keyset)
         {
+        	System.out.println(key);
             Row row = sheet.createRow(rownum++);
             Persona objArr = data.get(key);
             int cellnum = 0;
@@ -60,27 +63,17 @@ public class CreateExcel
             }
             
             
-//			for (Object obj : objArr2)
-//            {
-//               Cell cell = row.createCell(cellnum++);
-//               if(obj instanceof String)
-//                    cell.setCellValue((String)obj);
-//                else if(obj instanceof Integer)
-//                    cell.setCellValue((Integer)obj);
-//               System.out.println("cellNum ---> " + cellnum);
-//            }
         }
-        try
-        {
+        try {
             //Write the workbook in file system
             FileOutputStream out = new FileOutputStream(new File("C:/Users/Roberto/Documents/EJEMPLO-EXCEL.xlsx"));
             workbook.write(out);
             out.close();
-            System.out.println("howtodoinjava_demo.xlsx written successfully on disk.");
-        } 
-        catch (Exception e) 
-        {
-            e.printStackTrace();
+            System.out.println("Archivo excel generado");
+        } catch (FileNotFoundException e){
+            System.err.println("Archivo no encontrado" + e.getMessage());
+        } catch (IOException e) {
+            System.err.println("Error de escritura de archivo" + e.getMessage());
         }
     }
 }
